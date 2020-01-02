@@ -15,10 +15,13 @@ namespace CustomServer.Data
         public async Task<User> Login(string email, string password)
         {
            var user =await _context.Users.FirstOrDefaultAsync(x => x.email==email);
-           //var user =await _context.Users.FirstAsync(x => x.email==email);
-           if(user==null)
+           
+           if(user==null){
+                Console.WriteLine(1);
                 return null;
+           }
            if(!VerifyPasswordHash(password, user.passwordHash, user.passwordSalt)){
+                Console.WriteLine(2);
                 return null;
            }
 
@@ -27,7 +30,7 @@ namespace CustomServer.Data
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using(var hmac = new System.Security.Cryptography.HMACSHA512()){
+            using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt)){
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 for(int i=0; i<computedHash.Length; i++){
                     if(computedHash[i] != passwordHash[i]) return false;
