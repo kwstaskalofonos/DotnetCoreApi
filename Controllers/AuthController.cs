@@ -39,7 +39,7 @@ namespace CustomServer.Controllers
                 email = userForRegisterDto.email
 
             };
-            var createdUser = _repo.Register(userToCreate, userForRegisterDto.password);
+            var createdUser =await _repo.Register(userToCreate, userForRegisterDto.password);
             return StatusCode(201);
             //return Ok();
         }
@@ -69,7 +69,7 @@ namespace CustomServer.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddSeconds(20),
+                Expires = DateTime.UtcNow.AddSeconds(1),
                 SigningCredentials = creds
             };
             //create token using tokenhandler

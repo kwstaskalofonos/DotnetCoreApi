@@ -17,11 +17,11 @@ namespace CustomServer.Data
            var user =await _context.Users.FirstOrDefaultAsync(x => x.email==email);
            
            if(user==null){
-                Console.WriteLine(1);
+                
                 return null;
            }
            if(!VerifyPasswordHash(password, user.passwordHash, user.passwordSalt)){
-                Console.WriteLine(2);
+                
                 return null;
            }
 
@@ -48,7 +48,7 @@ namespace CustomServer.Data
             user.passwordHash = passwordHash;
             user.passwordSalt = passwordSalt;
             user.userLevel = 1;
-            user.date = DateTime.Today;
+            user.date = DateTime.UtcNow;
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
