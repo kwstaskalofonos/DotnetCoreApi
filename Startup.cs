@@ -33,7 +33,20 @@ namespace CustomServer
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DBConnection")));
-            services.AddCors();
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowCredentials();
+                });
+            });    
+        
             services.AddScoped<IAuthRepository,AuthRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
@@ -55,13 +68,11 @@ namespace CustomServer
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+            app.UseCors("MyAllowSpecificOrigins");
             app.UseAuthentication();
 
             app.UseAuthorization();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CustomServer.Data;
 using CustomServer.Dtos;
 using CustomServer.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace CustomServer.Controllers
 {
 
+    
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
@@ -28,6 +30,7 @@ namespace CustomServer.Controllers
         }
 
         //https://localhost:5001/api/auth/register
+        [EnableCors("MyAllowSpecificOrigins")]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto){
 
@@ -45,13 +48,16 @@ namespace CustomServer.Controllers
         }
 
         //https//localhost:5001/api/auth/login
+        [EnableCors("MyAllowSpecificOrigins")]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto){
 
             var logedinUser = await _repo.Login(userForLoginDto.email, userForLoginDto.password);
 
-            if(logedinUser==null)
+            if(logedinUser==null){
                 return Unauthorized();
+            }
+            
             
             var claims = new[]
             {
