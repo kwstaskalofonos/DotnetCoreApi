@@ -42,7 +42,6 @@ namespace CustomServer
                     builder.WithOrigins("http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials()
                     .AllowCredentials();
                 });
             });    
