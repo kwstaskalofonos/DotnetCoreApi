@@ -67,10 +67,12 @@ namespace CustomServer
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+           
+            
             
             app.UseHttpsRedirection();
             app.UseRouting();
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseCors("MyAllowSpecificOrigins");
             app.UseAuthentication();
 
