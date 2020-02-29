@@ -53,14 +53,19 @@ namespace CustomServer
             services.AddScoped<IAuthRepository,AuthRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                          ValidateIssuerSigningKey = true,
-                          IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.
-                                    GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                                    ValidateIssuer = false,
-                                    ValidateAudience = false  
-                        };
+                        
+                            //options.RequireHttpsMetadata = false;
+                            //options.SaveToken = true;
+                            options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuerSigningKey = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.
+                                            GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                                            ValidateIssuer = false,
+                                            ValidateAudience = false  
+                            };
+                    
+                        
                     });
         }
 
@@ -70,14 +75,18 @@ namespace CustomServer
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }else{
+            }
+            
+            else{
                 app.UseExceptionHandler(builder => {
                     builder.Run(async context =>{
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null){
+                            //writing headers
                             context.Response.AddApplicationError(error.Error.Message);
+                            //writing message to http response
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });

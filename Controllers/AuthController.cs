@@ -52,39 +52,43 @@ namespace CustomServer.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto){
 
-            var logedinUser = await _repo.Login(userForLoginDto.email, userForLoginDto.password);
-
-            if(logedinUser==null){
-                return Unauthorized();
-            }
             
-            
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, logedinUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, logedinUser.email)
-            };
+                
 
-            //Create security key
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                        .GetBytes(_config.GetSection("AppSettings:Token").Value));
-            
-            //Hash the key
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            //Add other properties
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddSeconds(1),
-                SigningCredentials = creds
-            };
-            //create token using tokenhandler
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                var logedinUser = await _repo.Login(userForLoginDto.email, userForLoginDto.password);
 
-            return Ok(new{
-                token = tokenHandler.WriteToken(token)
-            });
+                if(logedinUser==null){
+                    return Unauthorized();
+                }
+                
+                
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, logedinUser.Id.ToString()),
+                    new Claim(ClaimTypes.Name, logedinUser.email)
+                };
+
+                //Create security key
+                var key = new SymmetricSecurityKey(Encoding.UTF8
+                            .GetBytes(_config.GetSection("AppSettings:Token").Value));
+                
+                //Hash the key
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                //Add other properties
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.UtcNow.AddSeconds(1),
+                    SigningCredentials = creds
+                };
+                //create token using tokenhandler
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                return Ok(new{
+                    token = tokenHandler.WriteToken(token)
+                });
+            
         }
         
     }
