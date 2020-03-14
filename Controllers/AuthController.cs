@@ -78,7 +78,7 @@ namespace CustomServer.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddSeconds(1),
+                    Expires = DateTime.UtcNow.AddSeconds(1200),
                     SigningCredentials = creds
                 };
                 //create token using tokenhandler
