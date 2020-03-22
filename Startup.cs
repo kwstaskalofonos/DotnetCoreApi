@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using customserver.Data;
 using customserver.Helpers;
 using CustomServer.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,7 +36,7 @@ namespace CustomServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DBConnection")));
             //services.AddCors();
@@ -50,7 +52,9 @@ namespace CustomServer
                 });
             });    
         
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IDatingRepository,DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
                         

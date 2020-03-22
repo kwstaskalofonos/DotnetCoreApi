@@ -12,5 +12,6 @@ namespace CustomServer.Data
         public DbSet<User> Users { get; set;}
         public DbSet<Profile> Profiles { get; set;}
         public DbSet<Photo> Photos { get; set;}
+        public DbSet<Log> Logs { get; set; }
     }
 }

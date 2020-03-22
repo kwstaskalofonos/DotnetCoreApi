@@ -21,6 +21,7 @@ namespace CustomServer.Data
                     user.passwordSalt = passwordSalt;
                     user.email = user.email.ToLower();
                     user.userLevel = 1;
+                    user.date = DateTime.UtcNow;
                     context.Users.Add(user);
                 }
                 context.SaveChanges();

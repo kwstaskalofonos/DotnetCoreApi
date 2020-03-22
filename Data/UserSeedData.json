@@ -2,46 +2,163 @@
   {
     "email":"konkalof@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+      {
+        "FirstName": "Bernice",
+        "SurName": "Hopper",
+        "DateOfBirth": "1980-03-09T12:35:15 -02:00",
+        "Gender": "male",
+        "City": " Advance",
+        "PostalCode": 14564,
+        "PhoneNumer": "+30 (886) 441-2857",
+        "ProfilePhoto": {
+          "Url": "https://randomuser.me/api/portraits/thumb/men/79.jpg"
+        }
+      }
   },
   {
     "email":"vgenopoulos@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Mcintosh",
+      "SurName": "Farrell",
+      "DateOfBirth": "1994-04-18T02:11:45 -03:00",
+      "Gender": "male",
+      "City": " Stevens",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (943) 424-2498",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/71.jpg"
+      }
+    }
   },
   {
     "email":"masxalidis@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Frank",
+      "SurName": "Nunez",
+      "DateOfBirth": "1984-02-13T03:14:01 -02:00",
+      "Gender": "male",
+      "City": " Norfolk",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (819) 452-3981",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/72.jpg"
+      }
+    }
   },
   {
     "email":"tsilogianis@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Trisha",
+      "SurName": "Weeks",
+      "DateOfBirth": "2000-04-12T07:17:13 -03:00",
+      "Gender": "male",
+      "City": " Bennett",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (956) 556-2056",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/73.jpg"
+      }
+    }
   },
   {
     "email":"arapakis@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Mary",
+      "SurName": "Alexander",
+      "DateOfBirth": "1997-12-20T07:23:51 -02:00",
+      "Gender": "male",
+      "City": " Rowe",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (807) 483-2082",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/74.jpg"
+      }
+    }
   },
   {
     "email":"bourelos@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Sara",
+      "SurName": "Jackson",
+      "DateOfBirth": "2001-12-05T02:33:55 -02:00",
+      "Gender": "male",
+      "City": " Vernon",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (989) 532-3953",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
+      }
+    }
   },
   {
     "email":"katounas@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Finley",
+      "SurName": "Fitzgerald",
+      "DateOfBirth": "1983-02-13T04:54:24 -02:00",
+      "Gender": "male",
+      "City": " Russellville",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (980) 414-3515",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/76.jpg"
+      }
+    }
   },
   {
     "email":"kouremenos@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Padilla",
+      "SurName": "Whitaker",
+      "DateOfBirth": "1978-04-03T08:01:29 -03:00",
+      "Gender": "male",
+      "City": " Jessie",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (997) 459-3733",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/77.jpg"
+      }
+    }
   },
   {
     "email":"mixalopoulos@gmail.com",
     "password":"password",
-    "passwordConfirm":"password"
+    "passwordConfirm":"password",
+    "Profile":
+    {
+      "FirstName": "Golden",
+      "SurName": "Acevedo",
+      "DateOfBirth": "1975-03-26T02:07:56 -03:00",
+      "Gender": "male",
+      "City": " Dowling",
+      "PostalCode": 14564,
+      "PhoneNumer": "+30 (875) 516-3373",
+      "ProfilePhoto": {
+        "Url": "https://randomuser.me/api/portraits/thumb/men/78.jpg"
+      }
+    }
   }
 ]

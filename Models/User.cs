@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CustomServer.Models
 {
     public class User
@@ -9,5 +11,6 @@ namespace CustomServer.Models
         public int userLevel {get; set;}
         public System.DateTime date {get; set;}
         public Profile Profile {get; set;}
+        public ICollection<Log> Logs {get; set;}
     }
 }
