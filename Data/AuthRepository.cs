@@ -14,18 +14,19 @@ namespace CustomServer.Data
         }
         public async Task<User> Login(string email, string password)
         {
-           var user =await _context.Users.FirstOrDefaultAsync(x => x.email==email);
+           // var user =await _context.Users.FirstOrDefaultAsync(x => x.email==email);
            
-           if(user==null){
+        //    if(user==null){
                 
-                return null;
-           }
-           if(!VerifyPasswordHash(password, user.passwordHash, user.passwordSalt)){
+        //         return null;
+        //    }
+        //    if(!VerifyPasswordHash(password, user.passwordHash, user.passwordSalt)){
                 
-                return null;
-           }
+        //         return null;
+        //    }
 
-           return user;
+           //return user;
+           return null;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
@@ -45,9 +46,9 @@ namespace CustomServer.Data
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
             
-            user.passwordHash = passwordHash;
-            user.passwordSalt = passwordSalt;
-            user.userLevel = 1;
+            // user.passwordHash = passwordHash;
+            // user.passwordSalt = passwordSalt;
+            // user.userLevel = 1;
             user.date = DateTime.UtcNow;
 
             await _context.Users.AddAsync(user);
@@ -67,8 +68,8 @@ namespace CustomServer.Data
 
         public async Task<bool> UserExists(string email)
         {
-            if(await _context.Users.AnyAsync(x => x.email==email))
-                return true;
+            // if(await _context.Users.AnyAsync(x => x.email==email))
+            //     return true;
             return false;
         }
     }

@@ -1,6 +1,8 @@
 using System;
 using CustomServer.Data;
+using CustomServer.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,8 +19,9 @@ namespace CustomServer
                var services = scope.ServiceProvider;
                try{
                    var context = services.GetRequiredService<DataContext>();
+                   var userManager = services.GetRequiredService<UserManager<User>>();
                    context.Database.Migrate();
-                   Seed.SeedUsers(context);
+                   Seed.SeedUsers(userManager);
                }catch(Exception ex){
                    var logger = services.GetRequiredService<ILogger<Program>>();
                    logger.LogError(ex,"An error occured during migration");

@@ -5,8 +5,8 @@ namespace CustomServer.Dtos
 {
     public class UsersListDto
     {
-        public string email {get; set;}
-        public int userLevel {get; set;}
+        public long Id {get; set;}
+        public string Email {get; set;}
         public ProfilesListDto Profile {get; set;}
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CustomServer.Models;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
 namespace CustomServer.Data
@@ -10,21 +11,23 @@ namespace CustomServer.Data
     {
         private const string Path = "Data/UserSeedData.json";
 
-        public static void SeedUsers(DataContext context){
-            if(!context.Users.Any()){
+        public static void SeedUsers(UserManager<User> userManager){
+            if(!userManager.Users.Any()){
                 var userData = System.IO.File.ReadAllText(Path);
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
                 foreach(var user in users){
-                    byte[] passwordHash, passwordSalt;
-                    CreatePasswordHash("password", out passwordHash, out passwordSalt);
-                    user.passwordHash = passwordHash;
-                    user.passwordSalt = passwordSalt;
-                    user.email = user.email.ToLower();
-                    user.userLevel = 1;
-                    user.date = DateTime.UtcNow;
-                    context.Users.Add(user);
+                    userManager.CreateAsync(user,"password").Wait();
+                    // byte[] passwordHash, passwordSalt;
+                    // CreatePasswordHash("password", out passwordHash, out passwordSalt);
+                    // user.passwordHash = passwordHash;
+                    // user.passwordSalt = passwordSalt;
+                    // user.email = user.email.ToLower();
+                    // user.userLevel = 1;
+                    // user.date = DateTime.UtcNow;
+                    // context.Users.Add(user);
+
                 }
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
         

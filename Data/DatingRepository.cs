@@ -24,7 +24,7 @@ namespace customserver.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.Include(p=>p.Profile).FirstOrDefaultAsync(u=>u.Id==id);
+            var user = await _context.Users.Include(p=>p.Profile).Include(i=>i.Profile.ProfilePhoto).FirstOrDefaultAsync(u=>u.Id==id);
             return user;
         }
 

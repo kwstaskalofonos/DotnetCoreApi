@@ -4,6 +4,7 @@ namespace CustomServer.Dtos
 {
     public class ProfilesListDto
     {
+        public long Id {get; set;}
         public string FirstName {get; set;}
         public string SurName {get; set;}
         public DateTime DateOfBirth {get; set;}
@@ -11,7 +12,7 @@ namespace CustomServer.Dtos
         public int Age {get; set;}
         public string City {get; set;}
         public string PostalCode {get; set;}
-        public string PhoneNumer {get; set;}
+        public string PhoneNumber {get; set;}
         public PhotoListDto ProfilePhoto {get; set;}
     }
 }

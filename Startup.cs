@@ -8,18 +8,23 @@ using AutoMapper;
 using customserver.Data;
 using customserver.Helpers;
 using CustomServer.Data;
+using CustomServer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CustomServer
@@ -36,24 +41,45 @@ namespace CustomServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            IdentityBuilder builder = services.AddIdentityCore<User>(opt =>{
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.User.RequireUniqueEmail = true;
+            });
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+            builder.AddEntityFrameworkStores<DataContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+            
+
+            services.AddControllers(options => {
+                var policy = new AuthorizationPolicyBuilder()
+                            .RequireAuthenticatedUser()
+                            .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).AddNewtonsoftJson();
             services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DBConnection")));
-            //services.AddCors();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MyAllowSpecificOrigins",
-                builder =>
-                {
-                    builder.WithOrigins("http://localhost:4200")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                });
-            });    
+
+            services.AddCors();
+            // services.AddCors(options =>
+            // {  
+
+            //     options.AddPolicy("MyAllowSpecificOrigins",
+            //     builder =>
+            //     {
+            //         builder.WithOrigins("http://localhost:4200")
+            //         .AllowAnyHeader()
+            //         .AllowAnyMethod()
+            //         .AllowCredentials();
+            //     });
+            // });    
         
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
-            services.AddScoped<IAuthRepository,AuthRepository>();
+            //services.AddScoped<IAuthRepository,AuthRepository>();
             services.AddScoped<IDatingRepository,DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => {
@@ -101,8 +127,8 @@ namespace CustomServer
             
             app.UseHttpsRedirection();
             app.UseRouting();
-            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseCors("MyAllowSpecificOrigins");
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseCors("MyAllowSpecificOrigins");
             app.UseAuthentication();
 
             app.UseAuthorization();

@@ -22,7 +22,8 @@ namespace customserver.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("getusers")]
+        //[HttpGet("getusers")]
+        [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _repo.GetUsers();
